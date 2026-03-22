@@ -82,3 +82,5 @@ expense-tracker/
 - **Budgets**: Set a budget for 'Food' at 2000rs. Add generic 'Food' expenses and watch the progress bar change from Green -> Yellow -> Red.
 
 *Developed by AI Engineer, as requested.*
+
+# expense-tracker
