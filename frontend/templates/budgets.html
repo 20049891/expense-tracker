@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-8">
+        <h3 class="fw-bold">Budgets</h3>
+        <p class="text-muted">Set spending limits for categories</p>
+    </div>
+    <div class="col-4 text-end">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#setBudgetModal">
+            <i class="bi bi-sliders"></i> Set Budget
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    {% for b in budget_data %}
+    {% set pct = (b.spent / b.limitAmount) * 100 %}
+    {% set p_color = 'bg-safe' if pct < 80 else ('bg-warning-custom' if pct < 100 else 'bg-danger-custom' ) %} <div
+        class="col-md-6 mb-4">
+        <div class="card p-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0">{{ b.category }}</h5>
+                <span class="badge {{ p_color }} fs-6">{{ "%.0f"|format(pct) }}%</span>
+            </div>
+
+            <h3 class="fw-bold mb-1">
+                <span class="text-danger">₹{{ "{:,.2f}".format(b.spent) }}</span>
+                <span class="text-muted fs-6">/ ₹{{ "{:,.2f}".format(b.limitAmount) }}</span>
+            </h3>
+
+            <div class="progress mt-3 mb-2" style="height: 12px;">
+                <div class="progress-bar {{ p_color }}" role="progressbar"
+                    style="width: {{ pct if pct <= 100 else 100 }}%"></div>
+            </div>
+
+            {% if pct >= 100 %}
+            <small class="text-danger fw-bold"><i class="bi bi-exclamation-triangle"></i> Budget exceeded!</small>
+            {% elif pct >= 80 %}
+            <small class="text-warning fw-bold"><i class="bi bi-exclamation-circle"></i> Nearing budget limit.</small>
+            {% else %}
+            <small class="text-success"><i class="bi bi-check-circle"></i> On track.</small>
+            {% endif %}
+        </div>
+</div>
+{% else %}
+<div class="col-12 text-center py-5 text-muted">
+    <i class="bi bi-piggy-bank display-4 d-block mb-3"></i>
+    <p>No budgets set yet. Click "Set Budget" to start planning.</p>
+</div>
+{% endfor %}
+</div>
+
+<!-- Set Budget Modal -->
+<div class="modal fade" id="setBudgetModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="{{ url_for('user.budgets') }}">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold">Manage Budget Limit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select class="form-select" name="category" required>
+                            {% for c in categories %}
+                            <option value="{{ c.name }}">{{ c.icon }} {{ c.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Monthly Limit (₹)</label>
+                        <input type="number" step="0.01" class="form-control" name="limitAmount" required>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Limit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

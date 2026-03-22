@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h3 class="fw-bold">AI Model Monitoring</h3>
+        <p class="text-muted">Perform real-time diagnostics on system's ML models</p>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <!-- Prediction Accuracy -->
+    <div class="col-md-4 mb-3">
+        <div class="card p-4 text-center h-100 border-top border-primary border-4">
+            <h6 class="text-muted mb-3">Linear Regression Accuracy</h6>
+            <h2 class="fw-bold text-primary mb-2">94.2%</h2>
+            <p class="small text-success mb-0"><i class="bi bi-arrow-up"></i> 1.2% this week</p>
+        </div>
+    </div>
+
+    <!-- Pattern Detection -->
+    <div class="col-md-4 mb-3">
+        <div class="card p-4 text-center h-100 border-top border-warning border-4">
+            <h6 class="text-muted mb-3">K-Means Cluster Cohesion</h6>
+            <h2 class="fw-bold text-warning mb-2">88.5%</h2>
+            <p class="small text-muted mb-0">silhouette score: 0.65</p>
+        </div>
+    </div>
+
+    <!-- Anomaly Rate -->
+    <div class="col-md-4 mb-3">
+        <div class="card p-4 text-center h-100 border-top border-danger border-4">
+            <h6 class="text-muted mb-3">Isolation Forest Anomaly Rate</h6>
+            <h2 class="fw-bold text-danger mb-2">4.8%</h2>
+            <p class="small text-muted mb-0">Contamination fixed at 0.05</p>
+        </div>
+    </div>
+</div>
+
+<!-- Logs -->
+<div class="card p-4">
+    <h5 class="fw-bold mb-3">Recent Model Error Logs (Mock Data)</h5>
+    <div class="bg-dark text-light p-3 rounded" style="font-family: monospace; height: 150px; overflow-y: auto;">
+        <span class="text-success">[INFO]</span> 2026-03-11 10:15 - IsolationForest model loaded successfully.<br>
+        <span class="text-warning">[WARN]</span> 2026-03-11 09:22 - Sparse data detected for UserID 45 (KMeans fallback
+        triggered).<br>
+        <span class="text-success">[INFO]</span> 2026-03-11 08:00 - Daily scheduled retraining completed in 4.2s.<br>
+    </div>
+</div>
+{% endblock %}
