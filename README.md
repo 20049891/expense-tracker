@@ -81,6 +81,6 @@ expense-tracker/
 - **AI Integration**: Add at least 10 varied transactions (cheap ones like Food 100rs, and unusually high ones like Shopping 15000rs) to trigger the *Isolation Forest* detection in the AI tab. Add transactions scaling up over multiple days to see the *Linear Regression* prediction adjust.
 - **Budgets**: Set a budget for 'Food' at 2000rs. Add generic 'Food' expenses and watch the progress bar change from Green -> Yellow -> Red.
 
-*Developed by AI Engineer, as requested.*
+*Developed by suraj narayan gupta as requested.*
 
 # expense-tracker
